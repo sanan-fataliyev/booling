@@ -8,9 +8,12 @@ namespace Booling
     {
         private ulong _bits;
 
+
+        public int Rank => 2;
+
         public bool this[int m, int n]
         {
-            get { throw new NotImplementedException(); }
+            get { return (_bits & (1UL << (m * 8 + n - 1))) == 1UL; }
             set { throw new NotImplementedException(); }
         }
     }
