@@ -17,11 +17,36 @@ namespace Tests
         {
             BoolTable bt = new BoolTable();
 
-            for (int row = 0; row < Math.Sqrt(sizeof(ulong)); row++)
-                for (int col = 0; col < Math.Sqrt(sizeof(ulong)); col++)
-                    Assert.IsFalse(bt[row, col]);
+            for (int row = 0; row < 8; row++)
+                for (int col = 0; col < 8; col++)
+                    Assert.IsFalse(bt[row, col], $"value in [{row},{col}] is calculated to true but expected false");
 
         }
+
+        [Test]
+        public void FirstCellTest()
+        {
+            BoolTable bt = new BoolTable();
+
+            bt[0, 0] = true;
+            Assert.IsTrue(bt[0,0]);
+
+            bt[0, 0] = false;
+            Assert.IsFalse(bt[0,0]);
+        }
+
+        [Test]
+        public void LastCellTest()
+        {
+            BoolTable bt = new BoolTable();
+
+            bt[7, 7] = true;
+            Assert.IsTrue(bt[7, 7]);
+
+            bt[7, 7] = false;
+            Assert.IsFalse(bt[7, 7]);
+        }
+
 
     }
 }
