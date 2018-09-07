@@ -4,8 +4,10 @@ using System.Text;
 
 namespace Booling
 {
-    class BoolTable : IBoolTable
+    public struct BoolTable : IBoolTable
     {
+        private ulong _bits;
+
         public bool this[int m, int n]
         {
             get { throw new NotImplementedException(); }
