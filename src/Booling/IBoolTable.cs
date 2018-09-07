@@ -6,6 +6,6 @@ namespace Booling
 {
     interface IBoolTable /*IEnumerable<bool>, IEnumerable<bool[]>*/
     {
-        bool this[int m, int n] { get; set; }
+        bool this[int row, int col] { get; set; }
     }
 }
