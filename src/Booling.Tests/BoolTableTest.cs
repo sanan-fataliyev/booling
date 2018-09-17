@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 using Booling;
 using NUnit.Framework;
 
@@ -45,6 +46,52 @@ namespace Tests
 
             bt[7, 7] = false;
             Assert.IsFalse(bt[7, 7]);
+        }
+
+        [Test]
+        public void CastFromTwoDimArrayTest()
+        {
+            bool[,] array =
+            {
+                {true, false, false, true, true, true, false, false},
+                {false, false, true, false, false, true, true, false},
+                {true, false, false, false, true, true, true, false},
+                {true, false, true, true, false, true, false, false},
+                {false, false, true, true, false, true, true, true},
+                {false, false, false, false, false, true, false, true},
+                {true, true, true, true, false, false, true, false},
+                {true, false, false, true, true, false, false, false}
+            };
+
+            BoolTable b = (BoolTable)array;
+
+            for (int i = array.GetLowerBound(0); i <= array.GetUpperBound(0); i++)
+                for (int j = array.GetLowerBound(1); j <= array.GetUpperBound(1); j++)
+                    Assert.IsTrue(b[i, j] == array[i, j]);
+        }
+
+        [Test]
+        public void InvertTest()
+        {
+            bool[,] array =
+            {
+                {true, false, false, true, true, true, false, false},
+                {false, false, true, false, false, true, true, false},
+                {true, false, false, false, true, true, true, false},
+                {true, false, true, true, false, true, false, false},
+                {false, false, true, true, false, true, true, true},
+                {false, false, false, false, false, true, false, true},
+                {true, true, true, true, false, false, true, false},
+                {true, false, false, true, true, false, false, false}
+            };
+
+            BoolTable b = (BoolTable)array;
+
+            b.Invert();
+
+            for (int i = array.GetLowerBound(0); i <= array.GetUpperBound(0); i++)
+                for (int j = array.GetLowerBound(1); j <= array.GetUpperBound(1); j++)
+                    Assert.IsTrue(b[i, j] == !array[i, j]);
         }
 
 
