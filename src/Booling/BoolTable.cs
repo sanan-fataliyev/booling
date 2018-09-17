@@ -46,6 +46,33 @@ namespace Booling
             }
         }
 
+        public void Invert()
+        {
+            this._bits = ~this._bits;
+        }
+
+        public static explicit operator BoolTable(bool[,] array)
+        {
+            if(array == null)
+                throw new ArgumentNullException(nameof(array));
+            if (array.Rank != 2)
+                throw new InvalidCastException("array is not two-dimentional");;
+
+            if (array.GetLength(0) != __RowsCount || array.GetLength(1) != __BitsPerRow)
+                throw new InvalidCastException($"array size must be {__RowsCount}x{__BitsPerRow}");
+
+            BoolTable b = new BoolTable();
+
+            int pos = 0;
+
+            for (int i = array.GetLowerBound(0); i <= array.GetUpperBound(0); i++)
+                for (int j = array.GetLowerBound(1); j <= array.GetUpperBound(1); j++)
+                    b[pos / __RowsCount, pos++ % __BitsPerRow] = array[i, j];
+            
+            return b;
+        }
+
+
         public override string ToString()
         {
             return Convert.ToString((long) this._bits, 2).PadLeft(64, '0');
