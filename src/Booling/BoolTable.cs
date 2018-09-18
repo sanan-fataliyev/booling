@@ -6,8 +6,7 @@ namespace Booling
 {
     public struct BoolTable : IBoolTable
     {
-        // ulong has 64 bits and we use it as 8x8 booleans table
-        private ulong _bits;
+        private long _bits;
 
         private const int __RowsCount = 8;
         private const int __BitsPerRow = 8;
@@ -28,7 +27,7 @@ namespace Booling
             get
             {
                 ValidateCellAddress(row, col);
-                return (this._bits & (1UL << (row * __BitsPerRow + col))) > 0UL;
+                return (this._bits & (1L << (row * __BitsPerRow + col))) != 0L;
             }
 
             set
@@ -37,11 +36,11 @@ namespace Booling
 
                 if (value)
                 {
-                    this._bits |= 1UL << (row * __BitsPerRow + col);
+                    this._bits |= 1L << (row * __BitsPerRow + col);
                 }
                 else
                 {
-                    this._bits &= ~(1UL << (row * __BitsPerRow + col));
+                    this._bits &= ~(1L << (row * __BitsPerRow + col));
                 }
             }
         }
@@ -75,7 +74,7 @@ namespace Booling
 
         public override string ToString()
         {
-            return Convert.ToString((long) this._bits, 2).PadLeft(64, '0');
+            return Convert.ToString(this._bits, 2).PadLeft(64, '0');
         }
     }
 }
